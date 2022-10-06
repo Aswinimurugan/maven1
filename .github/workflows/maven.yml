@@ -62,5 +62,6 @@ jobs:
         - name: Test artifacts download
           run: |
             cd staging
+            copy \staging\* \testing\*
             ls
 
