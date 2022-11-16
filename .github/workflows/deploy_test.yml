@@ -1,15 +1,21 @@
 name: Maven CD
 
-on: [push]
+on: 
+ workflow_dispatch:
+ release:
+    types: [created]
 
   
 jobs:
  deploy:
-  runs-on: [self-hosted,linux]
+  runs-on: windows-latest
   steps:
-    - uses: actions/checkout@v3
-    - name: Run build script
-      run: |
-        yum install sshpass
-        dnf install sshpass
-      shell: bash
+    - name: Download Workflow Artifacts
+      if: github.event_name == 'push'
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: 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
+        workflow: maven.yml
+        repo: Aswinimurugan/maven1
+        name: Package
+        path: staging
