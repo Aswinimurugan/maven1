@@ -1,9 +1,10 @@
 name: Maven CI/CD
 
-on: 
- workflow_dispatch:
- release:
-    types: [created]
+on:
+ push:
+    branches: [ develop, master ]
+ pull_request:
+    branches: [ develop ]
 
 jobs:
   build_and_test:
@@ -44,24 +45,17 @@ jobs:
             settings-path: ${{ github.workspace }}
             cache: maven
         - run: mvn -B package --file pom.xml -DskipTests
-        - name: Zip artifact for deployment
-          run: zip release.zip ./* -r
-
-
-        - run: mkdir staging 
-        - uses: actions/upload-artifact@v2
+        - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+        - uses: actions/upload-artifact@v1
           with:
-            name: release.zip
+            name: Package
             path: staging
         - name: download artifact
-          uses: actions/download-artifact@v2
+          uses: actions/download-artifact@v1
           with:
-            name: release.zip
+            name: Package
             path: staging
         - name: Test artifacts download
           run: |
-            ls
             cd staging
-            copy \staging\* \testing\*
             ls
-
