@@ -11,7 +11,6 @@ jobs:
   runs-on: windows-latest
   steps:
     - name: Download Workflow Artifacts
-      if: github.event_name == 'push'
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: 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
