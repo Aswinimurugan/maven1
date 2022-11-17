@@ -14,8 +14,8 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: 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
-        Repository: Aswinimurugan/maven1
-        Artifact name: Package
-        Local path: staging
-        Workflow name: maven.yml
-        Workflow conclusion: success
+        repo: Aswinimurugan/maven1
+        name: Package
+        path: staging
+        workflow: maven.yml
+        workflow_conclusion: success
