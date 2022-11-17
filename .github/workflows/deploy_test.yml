@@ -17,9 +17,10 @@ jobs:
         # Required, workflow file name or ID
         repo: ${{ github.repository }}
         workflow: maven.yml
-        commit: ${{ github.event.pull_request.head.sha || github.sha }}
         name: Package
         path: ${{ github.workspace }}/staging
         search_artifacts: true
         
-    - run: ls
+    - run: |
+        cd staging
+        ls
