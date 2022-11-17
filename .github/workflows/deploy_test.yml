@@ -15,7 +15,9 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         # Required, workflow file name or ID
+        repo: ${{ github.repository }}
         workflow: maven.yml
+        commit: ${{ github.event.pull_request.head.sha || github.sha }}
         name: Package
         path: ${{ github.workspace }}/staging
         search_artifacts: true
